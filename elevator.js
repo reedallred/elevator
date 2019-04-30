@@ -15,7 +15,8 @@ elevator.prototype.MoveToFloor = function(floorNumber){
     }
 
     this.occupied = true;
-
+    this.doorOpen = true;
+    this.doorOpen = false;
     while(true){
         if(this.currentFloorIndex == currentFloorIndex){
             return true;
@@ -30,7 +31,8 @@ elevator.prototype.MoveToFloor = function(floorNumber){
             currentFloorIndex--;
         }
     }
-    
+    this.doorOpen = true;
+    this.doorOpen = false;
     this.occupied = false;
     this.totalTripCount++;
 
