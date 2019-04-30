@@ -1,7 +1,11 @@
-function elevator( id, numberOfFloors) {
-    this.id = id;
+function elevator(numberOfFloors) {
     this.currentFloorIndex = 0;
     this.numberOfFloors = numberOfFloors;
+    this.doorOpen = false;
+    this.occupied = false;
+    this.totalFloorCount = 0;
+    this.totalTripCount = 0;
+    this.inMaintenance = false;
 }
 
 elevator.prototype.MoveToFloor = function(floorNumber){
@@ -10,15 +14,51 @@ elevator.prototype.MoveToFloor = function(floorNumber){
         return false;
     }
 
-    let indexFn = this.currentFloorIndex < currentFloorIndex ? (index) => { return index++;} : (index) => {  return index--;};
+    this.occupied = true;
 
     while(true){
         if(this.currentFloorIndex == currentFloorIndex){
             return true;
         }
         sleep(3000);
-        currentFloorIndex = indexFn(currentFloorIndex);
+
+        if(this.currentFloorIndex < currentFloorIndex){
+            this.totalFloorCount++;
+            currentFloorIndex++;
+        }else{
+            this.totalFloorCount++;
+            currentFloorIndex--;
+        }
     }
+    
+    this.occupied = false;
+    this.totalTripCount++;
+
+    if(this.totalTripCount == 99){
+        this.inMaintenance = true;
+    }
+};
+
+elevator.prototype.getCurrentFloor = function(){
+    return this.currentFloorIndex+ 1;
+};
+
+elevator.prototype.getDoorOpen = function(){
+    return this.doorOpen;
+};
+
+elevator.prototype.occupied = function(){
+    return this.occupied;
+};
+
+elevator.prototype.inMaintenance = function(){
+    return this.inMaintenance;
+};
+
+elevator.prototype.service = function(){
+    this.inMaintenance = 0;
+    this.totalFloorCount = 0;
+    this.totalTripCount = 0
 };
 
 module.exports = elevator;
