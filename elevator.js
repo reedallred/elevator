@@ -39,6 +39,8 @@ elevator.prototype.MoveToFloor = function(floorNumber){
     if(this.totalTripCount == 99){
         this.inMaintenance = true;
     }
+
+    return true;
 };
 
 elevator.prototype.getCurrentFloor = function(){

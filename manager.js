@@ -10,6 +10,9 @@ function manager(numberOfElevator, numberOfFloors) {
 }
 
 manager.prototype.request = function(floorNumber){
+    if(floorNumber > this.numberOfFloors){
+        return false;
+    }
     function compare(a, b){
 
         if (a.inMaintenance() && !b.inMaintenance()) return 1;
@@ -35,7 +38,7 @@ manager.prototype.request = function(floorNumber){
         // wait to free up.
     }
 
-    this.elevators[0].MoveToFloor(floorNumber);
+    return this.elevators[0].MoveToFloor(floorNumber);
 };
 
 module.exports = manager;
